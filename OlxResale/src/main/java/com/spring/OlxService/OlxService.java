@@ -6,6 +6,7 @@ public interface OlxService {
 
 	void add(Registration register);
 
-	Registration validate(Registration user);
+
+	boolean getUserObject(Registration user1);
 
 }

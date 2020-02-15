@@ -28,11 +28,25 @@ OlXDaoInterface olxDao;
 
 
 
+	
+
+
+
+
 	@Override
-	public Registration validate(Registration user) {
-		
-		return olxDao.validate(user);
+	public boolean getUserObject(Registration user1) {
+
+		 Boolean checkStatus = olxDao.getUserObject(user1);
+		 if(checkStatus==true)
+		 {
+			 return true;
+		 }
+		 else
+			 return false;
+
+
 	}
+	
 
 
 

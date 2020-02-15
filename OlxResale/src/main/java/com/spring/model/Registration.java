@@ -3,8 +3,10 @@ package com.spring.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 
@@ -14,10 +16,14 @@ public class Registration {
 	@GeneratedValue
 	private int user_pk;
 	@NotNull
+
 	private String first_name; 
 	@NotNull
 	private String last_name;	
 	@NotNull
+	
+	@Min(18)
+	@Max(100)
 	private int age;	
 	@NotNull
 	private String gender; 

@@ -4,12 +4,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.OlxService.OlxService;
+import com.spring.model.Login;
 import com.spring.model.Registration;
 
 
@@ -29,29 +32,42 @@ public class OlxController{
 		return "Registration";
 	}
 
-	@RequestMapping( value="/add",method = RequestMethod.GET	)
-	public String addUser(@ModelAttribute("register") Registration register ) {
-       
-        olxService.add(register);
-		return "Login";
+	@RequestMapping( value="/add", method = RequestMethod.GET	)
+	public String addUser(@ModelAttribute("register") Registration register, ModelAndView model) {
+		olxService.add(register);
+       model.addObject("registered", "Registered sucessfully");
+		return "LoginPage";
 	}
 	
-	@RequestMapping(value="/loginvalidate")
-	public ModelAndView validate(HttpSession session,@ModelAttribute Registration user){
-		Registration user1=olxService.validate(user);
-		String id=user1.getUserId();
-		String name=user1.getFirst_name();
-		String psw=user1.getUser_password();
-		if((name.equals(user.getUser_password()))&&psw.equals(user.getUser_password())){
-			session.setAttribute("uid",id);
-			session.setAttribute("uname", name);
-			return new ModelAndView("HomePage");
-		
+	@RequestMapping(value="/loginvalidate", method=RequestMethod.POST)
+	public String validate(@ModelAttribute("login")Login login, Model model){
+		System.out.println(login.getUser_password());
+		System.out.println(login.getuser_Id());
+
+		Registration user1=new Registration();
+		String id=login.getuser_Id();
+		String password=login.getUser_password();
+		user1.setUserId(id);
+		user1.setUser_password(password);
+		if(olxService.getUserObject(user1))
+		{
+			//List<Vehicle> vehilceList = vehicleService.getAllVehicle();
+			return "HomePage";
 		}
 		else
+			model.addAttribute("invalid", "Not a Valid User");
+		return "LoginPage";
+
+	
+		}
+	
+	@RequestMapping(value="/home")
+	public ModelAndView homePage(HttpSession session,@ModelAttribute() Registration user){
+		
 			
-		return new ModelAndView("redirect:/Login");
+		return new ModelAndView("HomePage");
 		
 	}
+	
 }	
 

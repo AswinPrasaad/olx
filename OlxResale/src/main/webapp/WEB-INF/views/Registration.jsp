@@ -59,14 +59,15 @@
 				<a class="navbar-brand">OlX </a>
 				<li class="active"><a href="#"> Home</a></li>
 				<li><a href="pets"> My Cart</a></li>
-				<li><a href="pet_form"> LOGIN</a></li>
+				<li><a href="/add"> LOGIN</a></li>
 				<li><input type="button" class="btn btn-secondary" value="Sell">
 				</li>
 				<p id="error4"></p>
-				<p>User Registration</p>
+				<center><h3 color: blue>User Registration Page</h5></center>
+				
+				
 				<form:form action="add" method="get" modelAttribute="register">
-					<table BORDER="1" align="center" bgcolor="#E8FDFF" weight="50%"
-						height="40%">
+					<table  class=" table table-striped table-dark">
 						<tr>
 							<td>First Name:</td>
 							<td>
@@ -123,7 +124,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>Addres:</td>
+							<td>Address:</td>
 							<td>
 							<td><form:input path="addres" name="addres" /></td>
 							<td>

@@ -6,7 +6,9 @@ public interface OlXDaoInterface  {
 
 	void add(Registration register);
 
-	Registration validate(Registration user);
+	
+
+	Boolean getUserObject(Registration user1);
 	
 	
 
